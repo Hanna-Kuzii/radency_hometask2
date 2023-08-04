@@ -1,5 +1,5 @@
 import "./App.css";
-import { Note, NotesList } from "./type/Note";
+import { Note } from "./type/Note";
 import { NewNote } from "./components/NewNote/NewNote";
 import {
   createNote,
@@ -11,8 +11,7 @@ import {
 import { ArchivedTable } from "./components/ArchivedNotes/ArchivedNotes";
 import { useAppDispatch, useAppSelector } from "./hooks";
 import { useState } from "react";
-import ActiveTable from "./components/ActiveTable/ActiveTable";
-import { Statistic } from "./components/Statistic/Statistic";
+import {ActiveTable} from "./components/ActiveTable/ActiveTable";
 
 function App() {
   const notesData = useAppSelector((state: any) => state.notesData);
@@ -45,12 +44,10 @@ function App() {
           editExistingNote={editExistingNote}
           archiveExistingNote={archiveExistingNote}
           deleteExistingNote={deleteExistingNote}
+          setNewNoteForm={setNewNoteForm}
+          statistic={statistic}
         />
       }
-      <button className="button" onClick={() => setNewNoteForm(true)}>
-        Create Note
-      </button>{" "}
-      {<Statistic statistic={statistic} />}
       {notesData.archive.length !== 0 && (
         <ArchivedTable
           notesData={notesData}

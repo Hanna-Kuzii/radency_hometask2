@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { Note } from "../../type/Note";
-import { editNote } from "../../actions/notesDataActions";
 
 interface NoteProps {
   note: Note;

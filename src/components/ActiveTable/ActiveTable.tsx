@@ -1,15 +1,18 @@
 import React, { useState } from "react";
-import { connect } from "react-redux";
 import { Note, NotesList } from "../../type/Note";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import { EditForm } from "../EditForm/EditForm";
+import { Statistic } from "../Statistic/Statistic";
+import { StatisticItem } from "../../type/StatisticItem";
 
 interface ActiveTableProps {
   notesData: NotesList;
   editExistingNote: (note: Note) => void;
   archiveExistingNote: (note: Note) => void;
   deleteExistingNote: (note: Note) => void;
+  setNewNoteForm: (arg: boolean) => void;
+  statistic: StatisticItem[];
 }
 
 export const ActiveTable: React.FC<ActiveTableProps> = ({
@@ -17,6 +20,8 @@ export const ActiveTable: React.FC<ActiveTableProps> = ({
   editExistingNote,
   archiveExistingNote,
   deleteExistingNote,
+  setNewNoteForm,
+  statistic,
 }) => {
   const [editNoteForm, setEditForm] = useState(false);
   const [editedNote, setEditedNote] = useState({
@@ -114,6 +119,16 @@ export const ActiveTable: React.FC<ActiveTableProps> = ({
                 </tr>
               </>
             ))}
+            <tr>
+              <td colSpan={7}>
+                <button className="button" onClick={() => setNewNoteForm(true)}>
+                  Create Note
+                </button>
+              </td>
+            </tr>
+            <tr>
+              <td colSpan={7}>{<Statistic statistic={statistic} />}</td>
+            </tr>
           </tbody>
         </table>
       </div>
@@ -134,4 +149,4 @@ const mapStateToProps = (state: any) => {
   };
 };
 
-export default connect(mapStateToProps)(ActiveTable);
+// export default connect(mapStateToProps)(ActiveTable);

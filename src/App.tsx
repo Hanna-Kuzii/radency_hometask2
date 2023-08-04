@@ -1,24 +1,58 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import ActiveTable from "./components/ActiveTable/ActiveTable";
+import { Note, NotesList } from "./type/Note";
+import { NewNote } from "./components/NewNote/NewNote";
+import {
+  createNote,
+  editNote,
+  archiveNote,
+  deleteNote,
+} from "./actions/activeTableActions";
+import notes from "../src/json/notes.json";
+import { ArchivedTable } from "./components/ArchivedNotes/ArchivedNotes";
+import { useAppDispatch, useAppSelector } from "./hooks";
 
 function App() {
+  const notesData = useAppSelector((state: NotesList) => notes);
+  const dispatch = useAppDispatch();
+
+  const addNewNote = (note: Note) => {
+    dispatch(createNote(note));
+  };
+
+  const editExistingNote = (note: Note) => {
+    dispatch(editNote(note));
+  };
+
+  const archiveExistingNote = (note: Note) => {
+    dispatch(archiveNote(note));
+  };
+  const unArchiveExistingNote = (note: Note) => {
+    dispatch(archiveNote(note));
+  };
+
+  const deleteExistingNote = (note: Note) => {
+    dispatch(deleteNote(note));
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="App main">
+      {
+        <ActiveTable
+          notesData={notesData}
+          editExistingNote={editExistingNote}
+          archiveExistingNote={archiveExistingNote}
+          deleteExistingNote={deleteExistingNote}
+        />
+      }
+      {/* {<Statistic statistic={statistic}/>} */}
+      {
+        <ArchivedTable
+          notesData={notesData}
+          unArchiveExistingNote={unArchiveExistingNote}
+        />
+      }
+      {<NewNote addNewNote={addNewNote} />}
     </div>
   );
 }

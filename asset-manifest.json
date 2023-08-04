@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/radency_hometask2/static/css/main.917f46a5.css",
+    "main.js": "/radency_hometask2/static/js/main.8be14b1d.js",
+    "static/js/787.a04d3f67.chunk.js": "/radency_hometask2/static/js/787.a04d3f67.chunk.js",
+    "index.html": "/radency_hometask2/index.html",
+    "main.917f46a5.css.map": "/radency_hometask2/static/css/main.917f46a5.css.map",
+    "main.8be14b1d.js.map": "/radency_hometask2/static/js/main.8be14b1d.js.map",
+    "787.a04d3f67.chunk.js.map": "/radency_hometask2/static/js/787.a04d3f67.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.917f46a5.css",
+    "static/js/main.8be14b1d.js"
+  ]
+}

@@ -1,12 +1,16 @@
+import "./NewNote.css";
 import { useState } from "react";
 import { Note } from "../../type/Note";
 
 interface NoteProps {
-  addNewNote: (note: Note) => void,
-  setNewNoteForm: (arg: boolean) => void,
+  addNewNote: (note: Note) => void;
+  setNewNoteForm: (arg: boolean) => void;
 }
 
-export const NewNote: React.FC<NoteProps> = ({ addNewNote, setNewNoteForm }) => {
+export const NewNote: React.FC<NoteProps> = ({
+  addNewNote,
+  setNewNoteForm,
+}) => {
   const [noteName, setNoteName] = useState("");
   const [noteText, setNoteText] = useState("");
   const [noteCategory, setNoteCategory] = useState("choosed");
@@ -24,60 +28,63 @@ export const NewNote: React.FC<NoteProps> = ({ addNewNote, setNewNoteForm }) => 
   };
 
   const handleCreateNote = (event: any) => {
+    if (noteName === "" || noteText === "" || noteCategory === "choosed") {
+      window.alert("You have to add right data");
+    } else {
+      let icon = "";
+      switch (noteCategory) {
+        case "Idea":
+          icon = "https://img.icons8.com/material-outlined/24/idea--v1.png";
+          break;
+        case "Task":
+          icon =
+            "https://img.icons8.com/material-outlined/24/shopping-cart--v1.png";
+          break;
+        case "Random Thought":
+          icon =
+            "https://img.icons8.com/material-outlined/24/thinking-bubble.png";
+          break;
+        default:
+          console.log(`Mistake.`);
+      }
+      const dateRegex = /\d{1,2}\/\d{1,2}\/\d{4}/g;
+      const dates = noteText.match(dateRegex);
 
-    let icon = "";
-    switch (noteCategory) {
-      case "Idea":
-        icon = "https://img.icons8.com/material-outlined/24/idea--v1.png";
-        break;
-      case "Task":
-        icon =
-          "https://img.icons8.com/material-outlined/24/shopping-cart--v1.png";
-        break;
-      case "Random Thought":
-        icon =
-          "https://img.icons8.com/material-outlined/24/thinking-bubble.png";
-        break;
-      default:
-        console.log(`Mistake.`);
+      const date = new Date();
+      const months = [
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July",
+        "August",
+        "September",
+        "October",
+        "November",
+        "December",
+      ];
+      const created = `${
+        months[date.getMonth()]
+      } ${date.getDate()}, ${date.getFullYear()}`;
+
+      const newNote = {
+        id: +date,
+        icon: icon,
+        name: noteName,
+        created: created,
+        category: noteCategory,
+        content: noteText,
+        dates: dates?.toString() || "",
+      };
+
+      addNewNote(newNote);
+
+      event.preventDefault();
+      document.forms[0].reset();
+      setNewNoteForm(false);
     }
-    const dateRegex = /\d{1,2}\/\d{1,2}\/\d{4}/g;
-    const dates = noteText.match(dateRegex);
-
-    const date = new Date();
-    const months = [
-      "January",
-      "February",
-      "March",
-      "April",
-      "May",
-      "June",
-      "July",
-      "August",
-      "September",
-      "October",
-      "November",
-      "December",
-    ];
-    const created = `${
-      months[date.getMonth()]
-    } ${date.getDate()}, ${date.getFullYear()}`;
-
-    const newNote = {
-      id: +date,
-      icon: icon,
-      name: noteName,
-      created: created,
-      category: noteCategory,
-      content: noteText,
-      dates: dates?.toString() || "",
-    };
-
-    addNewNote(newNote);
-
-    event.preventDefault();
-    document.forms[0].reset();
-    setNewNoteForm(false);
   };
   return (
     <div className="new-note">

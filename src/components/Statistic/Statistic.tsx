@@ -1,3 +1,4 @@
+import './Statistic.css';
 import { Note } from "../../type/Note";
 import { StatisticItem } from "../../type/StatisticItem";
 interface StatisticProps {
@@ -10,7 +11,6 @@ export const getUpdatedStatistics = (
 ): StatisticItem[] => {
   const categories: { [category: string]: StatisticItem } = {};
 
-  // Count active notes
   activeNotes.forEach((note) => {
     const { category } = note;
     if (!categories[category]) {

@@ -5,22 +5,22 @@ export const upadateStatistic = (item: StatisticItem) => ({
   payload: item,
 });
 
-// export const editNote = (note: Note) => ({
-//   type: 'notesData/EDIT',
-//   payload: note,
-// });
+export const editNote = (item: StatisticItem) => ({
+  type: 'notesData/EDIT',
+  payload: item,
+});
 
-// export const archiveNote = (note: Note) => ({
-//   type: 'notesData/ARCHIVE',
-//   payload: note,
-// });
+export const archiveNote = (item: StatisticItem) => ({
+  type: 'notesData/ARCHIVE',
+  payload: item,
+});
 
-// export const unArchiveNote = (note: Note) => ({
-//   type: 'notesData/UNARCHIVE',
-//   payload: note,
-// });
+export const unArchiveNote = (item: StatisticItem) => ({
+  type: 'notesData/UNARCHIVE',
+  payload: item,
+});
 
-// export const deleteNote = (note: Note) => ({
-//   type: 'notesData/DELETE',
-//   payload: note,
-// });
+export const deleteNote = (item: StatisticItem) => ({
+  type: 'notesData/DELETE',
+  payload: item,
+});

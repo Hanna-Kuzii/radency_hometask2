@@ -3,12 +3,16 @@ import { Note } from "../../type/Note";
 import { editNote } from "../../actions/notesDataActions";
 
 interface NoteProps {
-  note: Note,
-  editExistingNote: (note: Note) => void,
-  setEditForm: (arg: boolean) => void,
+  note: Note;
+  editExistingNote: (note: Note) => void;
+  setEditForm: (arg: boolean) => void;
 }
 
-export const EditForm: React.FC<NoteProps> = ({ note, editExistingNote, setEditForm }) => {
+export const EditForm: React.FC<NoteProps> = ({
+  note,
+  editExistingNote,
+  setEditForm,
+}) => {
   const [noteName, setNoteName] = useState(note.name);
   const [noteText, setNoteText] = useState(note.content);
   const [noteCategory, setNoteCategory] = useState(note.category);
@@ -26,42 +30,45 @@ export const EditForm: React.FC<NoteProps> = ({ note, editExistingNote, setEditF
   };
 
   const handleEditNote = (event: any) => {
+    if (noteName === "" || noteText === "" || noteCategory === "choosed") {
+      window.alert("You have to add right data");
+    } else {
+      let icon = "";
+      switch (noteCategory) {
+        case "Idea":
+          icon = "https://img.icons8.com/material-outlined/24/idea--v1.png";
+          break;
+        case "Task":
+          icon =
+            "https://img.icons8.com/material-outlined/24/shopping-cart--v1.png";
+          break;
+        case "Random Thought":
+          icon =
+            "https://img.icons8.com/material-outlined/24/thinking-bubble.png";
+          break;
+        default:
+          console.log(`Mistake.`);
+      }
 
-    let icon = "";
-    switch (noteCategory) {
-      case "Idea":
-        icon = "https://img.icons8.com/material-outlined/24/idea--v1.png";
-        break;
-      case "Task":
-        icon =
-          "https://img.icons8.com/material-outlined/24/shopping-cart--v1.png";
-        break;
-      case "Random Thought":
-        icon =
-          "https://img.icons8.com/material-outlined/24/thinking-bubble.png";
-        break;
-      default:
-        console.log(`Mistake.`);
+      const dateRegex = /\d{1,2}\/\d{1,2}\/\d{4}/g;
+      const dates = noteText.match(dateRegex);
+
+      const editNote = {
+        id: note.id,
+        icon: icon,
+        name: noteName,
+        created: note.created,
+        category: noteCategory,
+        content: noteText,
+        dates: dates?.toString() || "",
+      };
+
+      editExistingNote(editNote);
+
+      event.preventDefault();
+      document.forms[0].reset();
+      setEditForm(false);
     }
-
-    const dateRegex = /\d{1,2}\/\d{1,2}\/\d{4}/g;
-    const dates = noteText.match(dateRegex);
-
-    const editNote = {
-      id: note.id,
-      icon: icon,
-      name: noteName,
-      created: note.created,
-      category: noteCategory,
-      content: noteText,
-      dates: dates?.toString() || "",
-    };
-
-    editExistingNote(editNote);
-
-    event.preventDefault();
-    document.forms[0].reset();
-    setEditForm(false);
   };
   return (
     <div className="new-note">

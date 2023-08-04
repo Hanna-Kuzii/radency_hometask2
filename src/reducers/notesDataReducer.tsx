@@ -1,4 +1,3 @@
-import { getUpdatedStatistics } from "../components/Statistic/Statistic";
 import { Note } from "../type/Note";
 
 interface notesDataState {
@@ -123,9 +122,5 @@ const notesDataReducer = (state = initialState, action: any) => {
       return state;
   }
 };
-
-// const updatedState = notesDataReducer(state, action);
-// dispatch(updateStatistics(getUpdatedStatistics(updatedState.active, updatedState.archive)));
-
 
 export default notesDataReducer;

@@ -1,3 +1,4 @@
+import './ArchivedNotes.css'
 import React, { useState } from "react";
 import { Note, NotesList } from "../../type/Note";
 

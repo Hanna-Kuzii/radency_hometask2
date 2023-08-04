@@ -1,7 +1,47 @@
+import { Note } from "../../type/Note";
 import { StatisticItem } from "../../type/StatisticItem";
 interface StatisticProps {
   statistic: StatisticItem[];
 }
+
+export const getUpdatedStatistics = (
+  activeNotes: Note[],
+  archivedNotes: Note[]
+): StatisticItem[] => {
+  const categories: { [category: string]: StatisticItem } = {};
+
+  // Count active notes
+  activeNotes.forEach((note) => {
+    const { category } = note;
+    if (!categories[category]) {
+      categories[category] = {
+        category,
+        icon: note.icon,
+        active: 0,
+        archived: 0,
+      };
+    }
+    categories[category].active += 1;
+  });
+
+  archivedNotes.forEach((note) => {
+    const { category } = note;
+    if (!categories[category]) {
+      categories[category] = {
+        category,
+        icon: note.icon,
+        active: 0,
+        archived: 0,
+      };
+    }
+    categories[category].archived += 1;
+  });
+
+  const updatedStatistics = Object.values(categories);
+
+  return updatedStatistics;
+};
+
 export const Statistic: React.FC<StatisticProps> = ({ statistic }) => {
   return (
     <>

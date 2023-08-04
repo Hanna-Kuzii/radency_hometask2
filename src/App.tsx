@@ -1,5 +1,4 @@
 import "./App.css";
-import ActiveTable from "./components/ActiveTable/ActiveTable";
 import { Note, NotesList } from "./type/Note";
 import { NewNote } from "./components/NewNote/NewNote";
 import {
@@ -7,30 +6,33 @@ import {
   editNote,
   archiveNote,
   deleteNote,
-} from "./actions/activeTableActions";
-import notes from "../src/json/notes.json";
+  unArchiveNote,
+} from "./actions/notesDataActions";
 import { ArchivedTable } from "./components/ArchivedNotes/ArchivedNotes";
 import { useAppDispatch, useAppSelector } from "./hooks";
+import { useState } from "react";
+import ActiveTable from "./components/ActiveTable/ActiveTable";
+import { Statistic } from "./components/Statistic/Statistic";
 
 function App() {
-  const notesData = useAppSelector((state: NotesList) => notes);
+  const notesData = useAppSelector((state: any) => state.notesData);
+  const statistic = useAppSelector((state: any) => state.statistic);
   const dispatch = useAppDispatch();
+
+  const [newNoteForm, setNewNoteForm] = useState(false);
 
   const addNewNote = (note: Note) => {
     dispatch(createNote(note));
   };
-
   const editExistingNote = (note: Note) => {
     dispatch(editNote(note));
   };
-
   const archiveExistingNote = (note: Note) => {
     dispatch(archiveNote(note));
   };
   const unArchiveExistingNote = (note: Note) => {
-    dispatch(archiveNote(note));
+    dispatch(unArchiveNote(note));
   };
-
   const deleteExistingNote = (note: Note) => {
     dispatch(deleteNote(note));
   };
@@ -45,14 +47,20 @@ function App() {
           deleteExistingNote={deleteExistingNote}
         />
       }
-      {/* {<Statistic statistic={statistic}/>} */}
-      {
+      <button className="button" onClick={() => setNewNoteForm(true)}>
+        Create Note
+      </button>{" "}
+      {<Statistic statistic={statistic} />}
+      {notesData.archive.length !== 0 && (
         <ArchivedTable
           notesData={notesData}
           unArchiveExistingNote={unArchiveExistingNote}
         />
-      }
-      {<NewNote addNewNote={addNewNote} />}
+      )}
+      {newNoteForm && (
+        <NewNote addNewNote={addNewNote} setNewNoteForm={setNewNoteForm} />
+      )}
+
     </div>
   );
 }

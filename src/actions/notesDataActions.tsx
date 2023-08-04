@@ -1,26 +1,26 @@
 import { Note } from "../type/Note";
 
 export const createNote = (note: Note) => ({
-  type: 'activeTable/CREATE',
+  type: 'notesData/CREATE',
   payload: note,
 });
 
 export const editNote = (note: Note) => ({
-  type: 'activeTable/EDIT',
+  type: 'notesData/EDIT',
   payload: note,
 });
 
 export const archiveNote = (note: Note) => ({
-  type: 'activeTable/ARCHIVE',
+  type: 'notesData/ARCHIVE',
   payload: note,
 });
 
-export const restoreNote = (note: Note) => ({
-  type: 'activeTable/RESTORE',
+export const unArchiveNote = (note: Note) => ({
+  type: 'notesData/UNARCHIVE',
   payload: note,
 });
 
 export const deleteNote = (note: Note) => ({
-  type: 'activeTable/DELETE',
+  type: 'notesData/DELETE',
   payload: note,
 });

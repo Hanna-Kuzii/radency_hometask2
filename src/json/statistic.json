@@ -2,19 +2,19 @@
   {
     "category": "Random Thought",
     "icon": "https://img.icons8.com/material-outlined/24/thinking-bubble.png",
-    "active": 0,
+    "active": 1,
     "archived": 0
   },
   {
     "category": "Task",
     "icon": "https://img.icons8.com/material-outlined/24/shopping-cart--v1.png",
-    "active": 0,
+    "active": 5,
     "archived": 0
   },
   {
     "category": "Idea",
     "icon": "https://img.icons8.com/material-outlined/24/idea--v1.png",
-    "active": 0,
+    "active": 1,
     "archived": 0
   }
 ]

@@ -1,12 +1,12 @@
 import { createStore, combineReducers } from 'redux';
-import activeTableReducer from './reducers/activeTableReducer';
-// import archivedTableReducer from './reducers/archivedTableReducer';
+import notesDataReducer from './reducers/notesDataReducer';
+import { statisticsReducer } from './reducers/statisticReducer';
 
 const rootReducer = combineReducers({
-  activeTable: activeTableReducer,
-  // archiveTable: archivedTableReducer,
-  // statistic: statisticReduce
+  notesData: notesDataReducer,
+  statistic: statisticsReducer
 });
+
 
 const store = createStore(rootReducer);
 

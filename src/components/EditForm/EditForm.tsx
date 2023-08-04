@@ -1,15 +1,17 @@
 import { useState } from "react";
 import { Note } from "../../type/Note";
+import { editNote } from "../../actions/notesDataActions";
 
 interface NoteProps {
-  addNewNote: (note: Note) => void,
-  setNewNoteForm: (arg: boolean) => void,
+  note: Note,
+  editExistingNote: (note: Note) => void,
+  setEditForm: (arg: boolean) => void,
 }
 
-export const NewNote: React.FC<NoteProps> = ({ addNewNote, setNewNoteForm }) => {
-  const [noteName, setNoteName] = useState("");
-  const [noteText, setNoteText] = useState("");
-  const [noteCategory, setNoteCategory] = useState("choosed");
+export const EditForm: React.FC<NoteProps> = ({ note, editExistingNote, setEditForm }) => {
+  const [noteName, setNoteName] = useState(note.name);
+  const [noteText, setNoteText] = useState(note.content);
+  const [noteCategory, setNoteCategory] = useState(note.category);
 
   const handleChangeName = (event: React.ChangeEvent<HTMLInputElement>) => {
     setNoteName(event.target.value || "");
@@ -23,7 +25,7 @@ export const NewNote: React.FC<NoteProps> = ({ addNewNote, setNewNoteForm }) => 
     setNoteCategory(event.target.value || "choosed");
   };
 
-  const handleCreateNote = (event: any) => {
+  const handleEditNote = (event: any) => {
 
     let icon = "";
     switch (noteCategory) {
@@ -41,43 +43,25 @@ export const NewNote: React.FC<NoteProps> = ({ addNewNote, setNewNoteForm }) => 
       default:
         console.log(`Mistake.`);
     }
+
     const dateRegex = /\d{1,2}\/\d{1,2}\/\d{4}/g;
     const dates = noteText.match(dateRegex);
 
-    const date = new Date();
-    const months = [
-      "January",
-      "February",
-      "March",
-      "April",
-      "May",
-      "June",
-      "July",
-      "August",
-      "September",
-      "October",
-      "November",
-      "December",
-    ];
-    const created = `${
-      months[date.getMonth()]
-    } ${date.getDate()}, ${date.getFullYear()}`;
-
-    const newNote = {
-      id: +date,
+    const editNote = {
+      id: note.id,
       icon: icon,
       name: noteName,
-      created: created,
+      created: note.created,
       category: noteCategory,
       content: noteText,
       dates: dates?.toString() || "",
     };
 
-    addNewNote(newNote);
+    editExistingNote(editNote);
 
     event.preventDefault();
     document.forms[0].reset();
-    setNewNoteForm(false);
+    setEditForm(false);
   };
   return (
     <div className="new-note">
@@ -90,6 +74,7 @@ export const NewNote: React.FC<NoteProps> = ({ addNewNote, setNewNoteForm }) => 
               type="text"
               className="form-control new-note__name"
               onChange={handleChangeName}
+              value={noteName}
               required
               placeholder="Name of your note"
             />
@@ -98,7 +83,7 @@ export const NewNote: React.FC<NoteProps> = ({ addNewNote, setNewNoteForm }) => 
             <label htmlFor="choosedCategory">Choose category</label>
             <select
               id="choosedCategory"
-              defaultValue={"choosed"}
+              defaultValue={noteCategory}
               className="form-control new-note__category"
               required
               onChange={handleChangeCategory}
@@ -124,15 +109,16 @@ export const NewNote: React.FC<NoteProps> = ({ addNewNote, setNewNoteForm }) => 
               className="form-control new-note__text"
               rows={3}
               required
+              value={noteText}
               onChange={handleChangeText}
             ></textarea>
           </div>
           <button
+            onClick={handleEditNote}
             type="button"
-            className="btn btn-primary mb-2 new-note__button button-add"
-            onClick={handleCreateNote}
+            className="btn btn-primary mb-2 new-note__button button-edit"
           >
-            Create note
+            Edit note
           </button>
         </form>
       </div>

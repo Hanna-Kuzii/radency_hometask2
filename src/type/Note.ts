@@ -1,4 +1,5 @@
 export interface Note {
+  id: number,
   icon: string,
   name: string,
   created: string,

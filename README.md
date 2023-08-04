@@ -17,7 +17,6 @@ Open the page:
 
 Instructions for use:
 
-* Loading animation: Before the main content loads, there is a loading animation that lasts for 3 seconds. After that, the page is displayed in its entirety.
 * You can edit, archive and delete notes in the "Active" table.
 * Using the button "Create note", you can create a new note, enter a name and text, choose a category. creation time is added automatically. Also, if a date in the format "12/10/2020" was entered in the text, it will appear in the column "Dates".
 * If you want to edit the note, you can change the name, category and text.
